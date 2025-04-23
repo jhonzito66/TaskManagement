@@ -16,7 +16,7 @@ public class Main extends Application {
 
             Scene scene = new Scene(root);
 
-            primaryStage.setTitle("Gerenciador de Tarefas");
+            primaryStage.setTitle("Task Management");
             primaryStage.setScene(scene);
             primaryStage.show();
         } catch (Exception e) {

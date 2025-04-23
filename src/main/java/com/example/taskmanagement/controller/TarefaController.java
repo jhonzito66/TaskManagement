@@ -68,6 +68,7 @@ public class TarefaController {
     private void configurarColunas() {
         colunaDataEntrega.setCellFactory(column -> new TableCell<>() {
             private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
             @Override
             protected void updateItem(LocalDate item, boolean empty) {
                 super.updateItem(item, empty);
@@ -75,8 +76,49 @@ public class TarefaController {
             }
         });
 
+        // Adicionando o ComboBox na coluna de status
+        colunaStatus.setCellFactory(coluna -> new TableCell<>() {
+            private final ComboBox<String> comboStatus = new ComboBox<>();
+
+            {
+                // Configura o ComboBox com os status
+                comboStatus.getItems().addAll("A Fazer", "Em Andamento", "Concluído");
+                comboStatus.setStyle("-fx-background-color: white;");
+                comboStatus.setVisible(false);
+                comboStatus.setOnAction(event -> {
+                    Tarefa tarefa = getTableView().getItems().get(getIndex());
+                    String novoStatus = comboStatus.getValue();
+                    tarefa.setStatus(novoStatus);
+                    try {
+                        tarefaDAO.atualizar(tarefa);  // Atualiza a tarefa no banco de dados
+                    } catch (SQLException e) {
+                        exibirErro("Erro ao atualizar a tarefa: " + e.getMessage());
+                    }
+                });
+            }
+
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty || item == null) {
+                    setText(null);
+                    setGraphic(null);
+                } else {
+                    setText(item);  // Exibe o status como texto padrão
+
+                    // Exibe o ComboBox ao clicar na célula de status
+                    setGraphic(comboStatus);
+                    comboStatus.setValue(item);  // Define o status atual no ComboBox
+                    comboStatus.setVisible(true);
+                }
+            }
+        });
+
+        // Configuração da coluna de Ações
         colunaAcoes.setCellFactory(coluna -> new TableCell<>() {
             private final Button btnRemover = new Button("Remover");
+
             {
                 btnRemover.setStyle("-fx-background-color: #FF5555; -fx-text-fill: white;");
                 btnRemover.setOnAction(event -> {
@@ -92,6 +134,7 @@ public class TarefaController {
             }
         });
     }
+
 
     @FXML
     private void removerTarefa(Tarefa tarefa) {
