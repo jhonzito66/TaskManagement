@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.String?>
+
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.example.taskmanagement.controller.TarefaController"
+      spacing="10" alignment="TOP_CENTER"
+      style="-fx-padding: 20; -fx-background-color: #ffffff;">
+
+    <!-- Título da Aplicação -->
+    <Label text="Gerenciador de Tarefas"
+           style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #222;" />
+
+    <!-- Tabela de Tarefas -->
+    <TableView fx:id="tabelaTarefas" VBox.vgrow="ALWAYS" prefHeight="300"
+               style="-fx-border-color: #ccc; -fx-font-size: 14px; -fx-text-fill: #000;">
+        <columns>
+            <TableColumn fx:id="colunaTitulo" text="Título" prefWidth="150" />
+            <TableColumn fx:id="colunaDescricao" text="Descrição" prefWidth="250" />
+            <TableColumn fx:id="colunaDataEntrega" text="Data de Entrega" prefWidth="150" />
+            <TableColumn fx:id="colunaStatus" text="Status" prefWidth="100" />
+            <TableColumn fx:id="colunaAcoes" text="Ações" prefWidth="100" />
+        </columns>
+    </TableView>
+
+    <!-- Formulário de Registro de Nova Tarefa -->
+    <VBox spacing="10" alignment="CENTER_LEFT"
+          style="-fx-padding: 15; -fx-border-color: #ddd; -fx-border-radius: 5; -fx-background-color: #f9f9f9;">
+        <Label text="Nova Tarefa" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #333;" />
+        <GridPane hgap="10" vgap="10">
+            <Label text="Título:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+            <TextField fx:id="txtTitulo" GridPane.columnIndex="1" GridPane.rowIndex="0" prefWidth="300" />
+
+            <Label text="Descrição:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+            <TextArea fx:id="txtDescricao" GridPane.columnIndex="1" GridPane.rowIndex="1" prefWidth="300" prefHeight="80" wrapText="true" />
+
+            <Label text="Data de Entrega:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+            <DatePicker fx:id="dateEntrega" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+            <Label text="Status:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+            <ComboBox fx:id="comboStatus" GridPane.columnIndex="1" GridPane.rowIndex="3" prefWidth="300">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="A Fazer" />
+                        <String fx:value="Em Andamento" />
+                        <String fx:value="Concluído" />
+                    </FXCollections>
+                </items>
+            </ComboBox>
+        </GridPane>
+    </VBox>
+
+    <!-- Botões de Ação -->
+    <HBox spacing="20" alignment="CENTER" style="-fx-padding: 10;">
+        <Button text="Adicionar" onAction="#salvarTarefa" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 16px; -fx-min-width: 120px;" />
+        <Button text="Atualizar Lista" onAction="#atualizarLista" style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-font-size: 16px; -fx-min-width: 120px;" />
+    </HBox>
+
+    <!-- Relógio -->
+    <Label fx:id="lblDataHora" style="-fx-font-size: 16px; -fx-text-fill: #444;" alignment="CENTER" />
+</VBox>

@@ -1,0 +1,25 @@
+.table-view {
+    -fx-background-color: white;
+    -fx-table-cell-border-color: lightgray;
+    -fx-font-size: 14px;
+    -fx-text-fill: black;
+}
+
+.table-cell {
+    -fx-text-fill: black;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.label {
+    -fx-text-fill: #222;
+}
+
+.text-field, .text-area, .combo-box, .date-picker {
+    -fx-text-fill: black;
+    -fx-background-color: white;
+}
+
+.button {
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
