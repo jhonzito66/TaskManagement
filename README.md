@@ -40,8 +40,7 @@ src/
 │   │   │   │   ├── ConnectionFactory.java # Conexão com o banco
 │   │   │   │   └── TarefaDAO.java        # Operações de CRUD
 │   ├── resources/
-│       ├── view/
-│       │   └── MainView.fxml    # Interface gráfica
+│       ├──MainView.fxml    # Interface gráfica
 └── test/
 ```
 
